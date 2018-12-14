@@ -18,7 +18,7 @@
 
   <script type="text/javascript">
 
-    // Creates an array that lists out all computer and player choices choices (All letters of the alphabet).
+    // Creates an array that lists out all computer and player choices choices (All letters of the alphabet), and runs a for loop.
     var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
     for (var c = 0; c < computerChoices.length; c++);
     
@@ -49,21 +49,19 @@
       var userGuess = userGuess.toLowerCase();
       
 
-      //   Adds userGuess to the yourGuessesSoFar array
-      
 
-      // This logic determines the outcome of each action
-
+    // if the user doesn't pick a valid letter, an error alert appears
       if (userChoices.includes(userGuess) === false) {
           alert("You can only choose letters!");
           pop(yourGuessesSoFar);
       }
 
+    // if the user picks a letter twice, an error alert appears  
       if (yourGuessesSoFar.includes(userGuess) === true) {
           alert("You can't guess the same letter twice!");
           pop(yourGuessesSoFar);
       }
-
+    // if the user guesses correctly, he wins the game. Everything resets to the start
       if (userGuess === computerGuess) {
           alert(computerGuess.valueOf().toUpperCase() + " is correct! Way to go, you win!!!");
           wins = wins + 1;
@@ -72,7 +70,7 @@
           console.log(computerGuess);
           yourGuessesSoFar.length = 0;
       }
-
+    // if the user uses all his guesses, he loses the game. Everything resets to the start
       else if (guessesLeft === 1)  {
           alert("Oh no! You're out of guesses, you lose! :(")
           losses = losses + 1;
@@ -81,13 +79,13 @@
           console.log(computerGuess);
           yourGuessesSoFar.length = 0;
         }
-
+    // if a guess is incorrect, the guesses left variable decreases by 1
        else {
           guessesLeft = guessesLeft - 1;
           yourGuessesSoFar.push(userGuess);
           console.log(yourGuessesSoFar);
       }
-        // Display the user and computer guesses, and wins/losses/ties.
+        // Display the wins, losses, guesses left, and users guesses so far
         gameHTML.innerHTML = `
         Wins: ${wins}<br/>
         Losses: ${losses}<br/>
