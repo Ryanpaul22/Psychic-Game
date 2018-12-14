@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Psychic Game</title>
+</head>
+
+<body>
+
+  
+    <h1>The Psychic Game</h1>
+    <p>Guess what letter I'm thinking of</p>
+
+  
+
+  <div id="game"></div>
+
+  <script type="text/javascript">
+
+    // Creates an array that lists out all computer and player choices choices (All letters of the alphabet).
+    var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
+    for (var c = 0; c < computerChoices.length; c++);
+    
+    var userChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
+    for (var u = 0; u < userChoices.length; u++);
+    console.log(userChoices);
+
+    // Creates an array that lists out all of the user's guesses
+    var yourGuessesSoFar = [];
+    
+    // Creating variables to hold the number of wins, losses, guesses left, and guesses so far.
+    var wins = 0;
+    var losses = 0;
+    var guessesLeft = 9;
+
+    // Randomly chooses a choice from the options array. This is the Computer's guess.
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    console.log(computerGuess);
+
+    // grab and store reference to html element with 'game' id
+    var gameHTML = document.getElementById("game");
+    
+    // This function is run whenever the user presses a key.
+    document.onkeyup = function(event) {
+
+      // Determines which key was pressed.
+      var userGuess = event.key;
+      var userGuess = userGuess.toLowerCase();
+      
+
+      //   Adds userGuess to the yourGuessesSoFar array
+      
+
+      // This logic determines the outcome of each action
+
+      if (userChoices.includes(userGuess) === false) {
+          alert("You can only choose letters!");
+          pop(yourGuessesSoFar);
+      }
+
+      if (yourGuessesSoFar.includes(userGuess) === true) {
+          alert("You can't guess the same letter twice!");
+          pop(yourGuessesSoFar);
+      }
+
+      if (userGuess === computerGuess) {
+          alert(computerGuess.valueOf().toUpperCase() + " is correct! Way to go, you win!!!");
+          wins = wins + 1;
+          guessesLeft = 9;
+          computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+          console.log(computerGuess);
+          yourGuessesSoFar.length = 0;
+      }
+
+      else if (guessesLeft === 1)  {
+          alert("Oh no! You're out of guesses, you lose! :(")
+          losses = losses + 1;
+          guessesLeft = 9;
+          computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+          console.log(computerGuess);
+          yourGuessesSoFar.length = 0;
+        }
+
+       else {
+          guessesLeft = guessesLeft - 1;
+          yourGuessesSoFar.push(userGuess);
+          console.log(yourGuessesSoFar);
+      }
+
+        // Display the user and computer guesses, and wins/losses/ties.
+        gameHTML.innerHTML = `
+        Wins: ${wins}<br/>
+        Losses: ${losses}<br/>
+        Guesses Left: ${guessesLeft}<br/>
+        Your Guesses so far: ${yourGuessesSoFar}
+        `
+      }
+    
+  </script>
+
+</body>
+
+</html>
